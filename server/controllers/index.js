@@ -213,8 +213,6 @@ const setDog = (req, res) => {
 
   savePromise.catch((err) => res.json({ err }));
 
-  dogsList = Dog.getAll();
-
   return res;
 };
 
@@ -258,8 +256,8 @@ const searchName = (req, res) => {
   });
 };
 
-const updateDogAge = (dog, req) => {
-  var newAge = dog.age++;
+const updateDogAge = (dog) => {
+  var newAge = dog.age + 1;
   var saveDog = {name:dog.name, breed:dog.breed, age:newAge}
 
   saveDog.save();
