@@ -17,8 +17,6 @@ const defaultDogData = {
   age: 0,
 };
 
-var dogsList = {};
-
 // object for us to keep track of the last Cat we made and dynamically update it sometimes
 let lastAdded = new Cat(defaultData);
 let lastDogAdded = new Dog(defaultDogData);
@@ -260,11 +258,11 @@ const searchName = (req, res) => {
   });
 };
 
-const updateDogAge = (dog, req, res) => {
+const updateDogAge = (dog, req) => {
   var newAge = dog.age++;
-  var saveDog = {name:dog.name, breed:dog.breed, age:newAge.age}
+  var saveDog = {name:dog.name, breed:dog.breed, age:newAge}
 
-  savePromise = saveDog.save();
+  saveDog.save();
 }
 
 const searchDogName = (req, res) => {
