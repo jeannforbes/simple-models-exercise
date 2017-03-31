@@ -123,7 +123,7 @@ const hostPage3 = (req, res) => {
 };
 
 const hostPage4 = (req, res) => {
-  dogsList = Dog.getAll( (err, doc) => {
+  Dog.getAll( (err, doc) => {
     res.render('page4', {
       helpers: {
         list: function(dogs, options){ 
@@ -149,10 +149,6 @@ const getName = (req, res) => {
   // you can't send any more data to this user until the next response
   res.json({ name: lastAdded.name });
 };
-
-const getDogName = (req, res) => {
-  res.json({name: lastDogAdded.name });
-}
 
 // function to handle a request to set the name
 // controller functions in Express receive the full HTTP request
@@ -264,6 +260,13 @@ const searchName = (req, res) => {
   });
 };
 
+const updateDogAge = (dog, req, res) => {
+  var newAge = dog.age++;
+  var saveDog = {name:dog.name, breed:dog.breed, age:newAge.age}
+
+  savePromise = saveDog.save();
+}
+
 const searchDogName = (req, res) => {
   if(!req.query.name) {
     return res.json({error: 'Name is required to find your dog'});
@@ -279,12 +282,6 @@ const searchDogName = (req, res) => {
   });
 };
 
-// function to handle a request to update the last added object
-// this PURELY exists to show you how to update a model object
-// Normally for an update, you'd get data from the client,
-// search for an object, update the object and put it back
-// We will skip straight to updating an object
-// (that we stored as last added) and putting it back
 const updateLast = (req, res) => {
   // Your model is JSON, so just change a value in it.
   // This is the benefit of ORM (mongoose) and/or object documents (Mongo NoSQL)
@@ -304,11 +301,6 @@ const updateLast = (req, res) => {
   // if save error, just return an error for now
   savePromise.catch((err) => res.json({ err }));
 };
-
-const updateDogAge = (dog, req, res) => {
-  dog.age++;
-  const savePromise = dog.save();
-}
 
 // function to handle a request to any non-real resources (404)
 // controller functions in Express receive the full HTTP request
